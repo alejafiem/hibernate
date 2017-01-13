@@ -198,4 +198,51 @@ public class HurtowniaManagerTest {
 		assertEquals("BlaBla", hurtowniaManager.getProducentById(producent1.getId()).getNazwa());
 	}
 
+	// /Relacje
+	@Test
+	public void updateProducentsProduktsCheck() {
+		hurtowniaManager.addProdukt(produkt1);
+		hurtowniaManager.addProdukt(produkt2);
+
+		List<Produkt> produkts = new ArrayList<Produkt>();
+		produkts.add(produkt1);
+		produkts.add(produkt2);
+
+		producent1.setProdukts(produkts);
+
+		hurtowniaManager.addProducent(producent1);
+
+		assertEquals(2, hurtowniaManager.getProducentById(producent1.getId()).getProdukts().size());
+
+		produkts.remove(produkt2);
+
+		producent1.setProdukts(produkts);
+
+		hurtowniaManager.updateProducent(producent1);
+
+		assertEquals(1, hurtowniaManager.getProducentById(producent1.getId()).getProdukts().size());
+		assertNotNull(hurtowniaManager.getProduktById(produkt2.getId()));
+		// nie usuwa towaru, nie powinien
+	}
+
+	@Test // X bedace w Y
+	public void getProduktsOfProducentCheck() {
+		hurtowniaManager.addProdukt(produkt1);
+		hurtowniaManager.addProdukt(produkt2);
+
+		List<Produkt> produkts = new ArrayList<Produkt>();
+		produkts.add(produkt1);
+		produkts.add(produkt2);
+
+		producent1.setProdukts(produkts);
+
+		hurtowniaManager.addProducent(producent1);
+
+		Producent retrieved = hurtowniaManager.getProducentById(producent1.getId());
+
+		List<Produkt> retrievedTowars = retrieved.getProdukts();
+
+		assertEquals("Bateria", retrievedTowars.get(0).getNazwa());
+		assertEquals("Umywalka", retrievedTowars.get(1).getNazwa());	
+	}
 }
