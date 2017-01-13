@@ -90,24 +90,24 @@ public class HurtowniaManagerTest {
 		assertNull(hurtowniaManager.getProduktById(retrievedId)); // sprawdzenie czy usunelismy napewno ten sam rekord
 		assertEquals(retrievedSize - 1, hurtowniaManager.getAllProdukts().size()); // sprawdzenie czy napewno usunelismy tylko 1 rekord
 	}
-/*
+
 	@Test 
-	public void updateTowarCheck() {
-		hurtowniaManager.addTowar(t3);
+	public void updateProduktCheck() {
+		hurtowniaManager.addProdukt(produkt3);
 
-		assertEquals(8.99, t3.getCena(), 0);
+		assertEquals(8.99, produkt3.getCena(), 0);
 
-		t3.setCena(7.99);
+		produkt3.setCena(7.99);
 
-		assertEquals(7.99, t3.getCena(), 0);
+		assertEquals(7.99, produkt3.getCena(), 0);
 
-		hurtowniaManager.updateTowar(t3);
+		hurtowniaManager.updateProdukt(produkt3);
 
-		assertEquals(7.99, t3.getCena(), 0);
+		assertEquals(7.99, produkt3.getCena(), 0);
 
-		Towar retrievedTowar = hurtowniaManager.getTowarById(t3.getId());
+		Produkt retrievedProdukt = hurtowniaManager.getProduktById(produkt3.getId());
 
-		assertEquals(7.99, retrievedTowar.getCena(), 0);
+		assertEquals(7.99, retrievedProdukt.getCena(), 0);
 	}
 
 	// Producent
@@ -115,61 +115,61 @@ public class HurtowniaManagerTest {
 	public void addProducentCheck() {
 		int retrievedSize = hurtowniaManager.getAllProducents().size();
 
-		hurtowniaManager.addProducent(p4);
+		hurtowniaManager.addProducent(producent4);
 
 		assertEquals(retrievedSize + 1, hurtowniaManager.getAllProducents().size());
 	}
 	
 	@Test
 	public void getProducentByIdCheck() {
-		hurtowniaManager.addProducent(p2);
-		hurtowniaManager.addProducent(p1);
+		hurtowniaManager.addProducent(producent2);
+		hurtowniaManager.addProducent(producent1);
 
-		assertNotNull(hurtowniaManager.getProducentById(p2.getId()));
-		assertNotNull(hurtowniaManager.getProducentById(p1.getId()));
+		assertNotNull(hurtowniaManager.getProducentById(producent2.getId()));
+		assertNotNull(hurtowniaManager.getProducentById(producent1.getId()));
 
-		Producent retrieved1 = hurtowniaManager.getProducentById(p2.getId());
-		Producent retrieved2 = hurtowniaManager.getProducentById(p1.getId());
+		Producent retrieved1 = hurtowniaManager.getProducentById(producent2.getId());
+		Producent retrieved2 = hurtowniaManager.getProducentById(producent1.getId());
 
-		assertEquals(2008, retrieved1.getRokZalozeniaFirmy());
-		assertEquals(2002, retrieved2.getRokZalozeniaFirmy());
+		assertEquals(1234567, retrieved1.getNip());
+		assertEquals(9999999, retrieved2.getNip());
 	}
 
 	@Test
-	public void getProducentsByNazwaFirmyCheck() {
-		int retrievedSize = hurtowniaManager.getProducentsByNazwaFirmy("BUD").size();
+	public void getProducentsByNazwaCheck() {
+		int retrievedSize = hurtowniaManager.getProducentsByNazwa("Sanitex").size();
 
-		hurtowniaManager.addProducent(p1);
-		hurtowniaManager.addProducent(p2);
-		hurtowniaManager.addProducent(p3);
-		hurtowniaManager.addProducent(p4);
+		hurtowniaManager.addProducent(producent1);
+		hurtowniaManager.addProducent(producent2);
+		hurtowniaManager.addProducent(producent3);
+		hurtowniaManager.addProducent(producent4);
 
-		assertEquals(retrievedSize + 3, hurtowniaManager.getProducentsByNazwaFirmy("BUD").size());
+		assertEquals(retrievedSize + 3, hurtowniaManager.getProducentsByNazwa("Sanitex").size());
 	}
 
 	@Test
 	public void getProducentsByNumerTelefonuCheck() {
-		int retrievedSize = hurtowniaManager.getProducentsByNumerTelefonu("500-600-700").size();
+		int retrievedSize = hurtowniaManager.getProducentsByNrTel("999-999-999").size();
 
-		assertEquals(retrievedSize, hurtowniaManager.getProducentsByNumerTelefonu("500-600-700").size());
+		assertEquals(retrievedSize, hurtowniaManager.getProducentsByNrTel("999-999-999").size());
 
-		p1.setNumerTelefonu("500-600-700");
+		producent1.setNrTel("999-999-999");
 
-		hurtowniaManager.addProducent(p1);
+		hurtowniaManager.addProducent(producent1);
 
-		assertEquals(retrievedSize + 1, hurtowniaManager.getProducentsByNumerTelefonu("500-600-700").size());
+		assertEquals(retrievedSize + 1, hurtowniaManager.getProducentsByNrTel("999-999-999").size());
 
-		hurtowniaManager.addProducent(p2);
+		hurtowniaManager.addProducent(producent2);
 
-		assertEquals(retrievedSize + 1, hurtowniaManager.getProducentsByNumerTelefonu("500-600-700").size());
+		assertEquals(retrievedSize + 1, hurtowniaManager.getProducentsByNrTel("999-999-999").size());
 
-		p3.setNumerTelefonu("500-600-700");
+		producent3.setNrTel("999-999-999");
 
-		hurtowniaManager.addProducent(p3);
+		hurtowniaManager.addProducent(producent3);
 
-		assertEquals(retrievedSize + 2, hurtowniaManager.getProducentsByNumerTelefonu("500-600-700").size());
+		assertEquals(retrievedSize + 2, hurtowniaManager.getProducentsByNrTel("999-999-999").size());
 	}
-
+/*
 	@Test
 	public void deleteProducentCheck() {
 		hurtowniaManager.addProducent(p1);
