@@ -109,7 +109,7 @@ public class HurtowniaManagerTest {
 
 		assertEquals(7.99, retrievedProdukt.getCena(), 0);
 	}
-
+	
 	// Producent
 	@Test
 	public void addProducentCheck() {
@@ -137,18 +137,18 @@ public class HurtowniaManagerTest {
 
 	@Test
 	public void getProducentsByNazwaCheck() {
-		int retrievedSize = hurtowniaManager.getProducentsByNazwa("Sanitex").size();
+		int retrievedSize = hurtowniaManager.getProducentsByNazwa("Sani").size();
 
 		hurtowniaManager.addProducent(producent1);
 		hurtowniaManager.addProducent(producent2);
 		hurtowniaManager.addProducent(producent3);
 		hurtowniaManager.addProducent(producent4);
 
-		assertEquals(retrievedSize + 3, hurtowniaManager.getProducentsByNazwa("Sanitex").size());
+		assertEquals(retrievedSize + 3, hurtowniaManager.getProducentsByNazwa("Sani").size());
 	}
 
 	@Test
-	public void getProducentsByNumerTelefonuCheck() {
+	public void getProducentsByNrTelCheck() {
 		int retrievedSize = hurtowniaManager.getProducentsByNrTel("999-999-999").size();
 
 		assertEquals(retrievedSize, hurtowniaManager.getProducentsByNrTel("999-999-999").size());
@@ -168,6 +168,34 @@ public class HurtowniaManagerTest {
 		hurtowniaManager.addProducent(producent3);
 
 		assertEquals(retrievedSize + 2, hurtowniaManager.getProducentsByNrTel("999-999-999").size());
+	}
+	@Test
+	public void deleteProducentCheck() {
+		hurtowniaManager.addProducent(producent1);
+
+		assertNotNull(hurtowniaManager.getProducentById(producent1.getId()));
+		int retrievedSize = hurtowniaManager.getAllProducents().size();
+
+		hurtowniaManager.deleteProducent(producent1);
+
+		assertNull(hurtowniaManager.getProducentById(producent1.getId())); // sprawdzenie czy usunelismy napewno ten rekord
+		assertEquals(retrievedSize - 1, hurtowniaManager.getAllProducents().size()); // sprawdzenie czy napewno usunelismy tylko 1 rekord
+	}
+	
+	@Test
+	public void updateProducentCheck() {
+		assertEquals("Sanitex", producent1.getNazwa());
+
+		hurtowniaManager.addProducent(producent1);
+
+		assertEquals("Sanitex", producent1.getNazwa());
+
+		producent1.setNazwa("BlaBla");
+
+		hurtowniaManager.updateProducent(producent1);
+
+		assertEquals("BlaBla", producent1.getNazwa());
+		assertEquals("BlaBla", hurtowniaManager.getProducentById(producent1.getId()).getNazwa());
 	}
 
 }
